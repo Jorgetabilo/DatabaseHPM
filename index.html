@@ -13,6 +13,7 @@
             font-family: 'Lato', sans-serif;
             background-color: #111827;
             color: #e5e7eb;
+            overflow: hidden;
         }
         .font-title {
             font-family: 'Cormorant Garamond', serif;
@@ -75,19 +76,72 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #111827;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-out;
+            opacity: 1;
+        }
+        #splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .app-container {
+            transition: opacity 0.5s ease-in 0.5s;
+            opacity: 0;
+        }
+        .app-container.visible {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .splash-logo { animation: fadeIn 0.8s ease-out; }
+        .splash-title { animation: fadeIn 1s ease-out; }
+        .splash-credits { animation: fadeIn 1.4s ease-out; }
+        .splash-button { animation: fadeIn 1.8s ease-out; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body>
 
-    <div class="max-w-5xl mx-auto">
-        <header class="text-center mb-8 flex items-center justify-center gap-4">
-            <svg class="h-14 w-14 text-blue-400" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 16L41 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M23 48L41 48" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M23 16L12 32L23 48" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M41 16L52 32L41 48" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="6" fill="currentColor" opacity="0.8"/><circle cx="12" cy="32" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="52" cy="32" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="23" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="41" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="23" cy="48" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="41" cy="48" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight font-title">Base de Datos Neuroquirúrgica <span class="hpm-gradient">HPM</span></h1>
+    <div id="splash-screen">
+        <div class="text-center p-4">
+            <svg class="splash-logo mx-auto h-24 w-24 text-white mb-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 18V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h1 class="splash-title text-4xl md:text-6xl font-bold text-white tracking-tight font-title">Base de Datos Neuroquirúrgica <span class="hpm-gradient">HPM</span></h1>
+            <p class="splash-credits text-md text-gray-400 mt-12 font-title">Desarrollada y creada por Dr. Jorge Tabilo</p>
+            <button id="enter-app-btn" class="splash-button mt-8 btn-primary py-3 px-8 text-lg">Entrar</button>
+        </div>
+    </div>
+
+    <div id="app-container" class="max-w-5xl mx-auto">
+        <header class="text-center mb-8">
+             <div class="flex items-center justify-center gap-4">
+                <svg class="h-14 w-14 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight font-title">Base de Datos Neuroquirúrgica <span class="hpm-gradient">HPM</span></h1>
+            </div>
+            <div class="mt-4">
+                <a href="https://docs.google.com/spreadsheets/d/109ZE0aXq_tIteMiehespk7HOrDPLB_OSpTgxIe5jciI/edit?usp=sharing" target="_blank" class="btn-secondary py-2 px-4 text-sm inline-flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                    Abrir Google Sheet
+                </a>
+            </div>
         </header>
 
         <main>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Columna Izquierda: Carga y Vista Previa de Imagen -->
                 <div class="glass-effect p-6 rounded-2xl">
                     <h2 class="text-2xl font-semibold mb-4 text-white font-title">1. Cargar Protocolo</h2>
                     <div class="bg-gray-700/50 border-2 border-dashed border-gray-500 rounded-xl p-6 text-center">
@@ -105,7 +159,6 @@
                     </button>
                 </div>
 
-                <!-- Columna Derecha: Datos Extraídos -->
                 <div class="glass-effect p-6 rounded-2xl">
                     <h2 class="text-2xl font-semibold mb-4 text-white font-title">2. Verificar y Enviar</h2>
                      <div id="form-container" class="space-y-4">
@@ -114,7 +167,7 @@
                         <input type="text" id="cirujanos" placeholder="Cirujanos (separados por coma)" class="w-full p-3 form-input">
                         <input type="text" id="ayudante" placeholder="Ayudante" class="w-full p-3 form-input">
                         <input type="text" id="tiempos" placeholder="Tiempos Quirúrgicos" class="w-full p-3 form-input">
-                        <input type="text" id="codigos" placeholder="Códigos de Cirugía" class="w-full p-3 form-input">
+                        <input type="text" id="codigos" placeholder="Códigos (separados por coma)" class="w-full p-3 form-input">
                         
                         <div class="flex justify-between items-center">
                             <label for="tecnica" class="text-gray-300">Técnica Quirúrgica</label>
@@ -135,29 +188,16 @@
             </div>
         </main>
         
-        <div id="notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-            <div class="bg-gray-800 rounded-lg p-6 shadow-xl text-left max-w-md w-full">
-                <p id="notification-message" class="text-lg whitespace-pre-wrap"></p>
-                <button id="notification-close" class="mt-4 w-full btn-primary py-2 px-6">OK</button>
-            </div>
-        </div>
-        
-        <div id="keywords-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-            <div class="bg-gray-800 rounded-lg p-6 shadow-xl text-left max-w-md w-full">
-                <h3 class="text-xl font-semibold mb-4 font-title">Generar Técnica Quirúrgica</h3>
-                <p class="text-gray-400 mb-4">Introduce palabras clave para que la IA genere la descripción.</p>
-                <input type="text" id="keywords-input" class="w-full p-3 form-input" placeholder="Ej: craneotomía pterional, clipaje de aneurisma...">
-                <div class="mt-6 flex justify-end space-x-4">
-                    <button id="keywords-cancel" class="btn-secondary py-2 px-6">Cancelar</button>
-                    <button id="keywords-generate" class="btn-primary py-2 px-6">Generar</button>
-                </div>
-            </div>
-        </div>
+        <div id="notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"><div class="bg-gray-800 rounded-lg p-6 shadow-xl text-left max-w-md w-full"><p id="notification-message" class="text-lg whitespace-pre-wrap"></p><button id="notification-close" class="mt-4 w-full btn-primary py-2 px-6">OK</button></div></div>
+        <div id="keywords-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"><div class="bg-gray-800 rounded-lg p-6 shadow-xl text-left max-w-md w-full"><h3 class="text-xl font-semibold mb-4 font-title">Generar Técnica Quirúrgica</h3><p class="text-gray-400 mb-4">Introduce palabras clave para que la IA genere la descripción.</p><input type="text" id="keywords-input" class="w-full p-3 form-input" placeholder="Ej: craneotomía pterional, clipaje de aneurisma..."><div class="mt-6 flex justify-end space-x-4"><button id="keywords-cancel" class="btn-secondary py-2 px-6">Cancelar</button><button id="keywords-generate" class="btn-primary py-2 px-6">Generar</button></div></div></div>
     </div>
 
     <script type="module">
         let base64ImageData = null;
 
+        const splashScreen = document.getElementById('splash-screen');
+        const appContainer = document.getElementById('app-container');
+        const enterAppBtn = document.getElementById('enter-app-btn');
         const uploadButton = document.getElementById('upload-button');
         const imageUpload = document.getElementById('image-upload');
         const imagePreview = document.getElementById('image-preview');
@@ -192,6 +232,11 @@
         });
 
         function setupEventListeners() {
+            enterAppBtn.addEventListener('click', () => {
+                splashScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                appContainer.classList.add('visible');
+            });
             uploadButton.addEventListener('click', () => imageUpload.click());
             imageUpload.addEventListener('change', handleImageUpload);
             processButton.addEventListener('click', handleProcessImage);
@@ -204,7 +249,12 @@
         }
 
         async function callGeminiAPI(prompt, imageData = null) {
-            const apiKey = "";
+            const apiKey = "AIzaSyA0kt2tCTGWsmek2a7HqAdiIygc1mxfXww";
+
+            if (!apiKey) {
+                throw new Error("API Key de Gemini no encontrada.");
+            }
+
             const model = 'gemini-2.5-flash-preview-05-20';
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
             
@@ -215,18 +265,19 @@
 
             const payload = {
                 contents: [{ parts: parts }],
-                generationConfig: { responseMimeType: imageData ? "application/json" : "text/plain" }
+                generationConfig: { responseMimeType: "application/json" }
             };
 
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) {
                 const errorBody = await response.text();
-                throw new Error(`Error en la API de Gemini: ${response.status} ${errorBody}`);
+                console.error("Error response from Gemini API:", errorBody);
+                throw new Error(`Error en la API de Gemini: ${response.status}.`);
             }
             const result = await response.json();
             if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
                 const responseText = result.candidates[0].content.parts[0].text;
-                return imageData ? JSON.parse(responseText) : responseText;
+                return JSON.parse(responseText);
             } else {
                 throw new Error("Respuesta inesperada de la API de Gemini.");
             }
@@ -258,7 +309,7 @@
                 populateForm(result);
                 showNotification("Datos extraídos con éxito. Por favor, verifica la información.");
             } catch (error) {
-                showNotification(`Error al procesar la imagen: ${error.message}`);
+                showNotification(error.message);
             } finally {
                 setLoading(false, processButton, processButtonText, '✨ Extraer Datos con IA');
             }
@@ -282,12 +333,13 @@
             }
             keywordsModal.classList.add('hidden');
             form.tecnica.value = "Generando descripción con IA...";
-            const prompt = `Eres un neurocirujano experto redactando protocolos. Basado en las siguientes palabras clave, redacta una descripción de técnica quirúrgica detallada, profesional y bien estructurada. Usa un lenguaje técnico preciso.\n\nPalabras clave: "${keywords}"`;
+            const promptText = `Eres un neurocirujano experto redactando protocolos. Basado en las siguientes palabras clave, redacta una descripción de técnica quirúrgica detallada, profesional y bien estructurada. Usa un lenguaje técnico preciso.\n\nPalabras clave: "${keywords}"`;
             try {
-                const generatedText = await callGeminiAPI(prompt);
+                const responseJson = await callGeminiAPI(promptText);
+                const generatedText = responseJson.text || JSON.stringify(responseJson);
                 form.tecnica.value = generatedText;
             } catch (error) {
-                form.tecnica.value = `Error al generar: ${error.message}`;
+                 form.tecnica.value = `Error al generar: ${error.message}`;
             }
         }
 
@@ -308,7 +360,6 @@
             }
             
             setLoading(true, saveButton, null, 'Enviando...');
-
             const googleScriptURL = 'https://script.google.com/macros/s/AKfycbw06xYE5XyaMeSWTDdM0XUfc5D41BuYg-w8Hds5ScZ49jJ6tc2L8uEtu_WJoTCPT4xP8Q/exec';
             
             try {
@@ -321,7 +372,6 @@
                 
                 showNotification("¡Éxito! Los datos del protocolo han sido enviados a Google Sheets.");
                 resetForm();
-
             } catch (error) {
                 console.error("Error en la solicitud a Google Sheets:", error);
                 showNotification("Error al enviar los datos. Por favor, revisa la consola para más detalles.");
@@ -365,87 +415,3 @@
     </script>
 </body>
 </html>
-```
-
----
-
-
-### Guía Final para la Conexión a Google Sheets
-
-Con la nueva versión de la app que ya no usa Firebase, el único punto que puede fallar es el **Google Apps Script**. Si los datos no llegan, es 100% seguro que el problema está ahí.
-
-Por favor, sigue esta guía como último paso.
-
-#### Paso 1: Reemplaza el Código del Script
-
-1.  Abre tu hoja de cálculo de Google Sheets.
-2.  Ve al menú **`Extensiones`** > **`Apps Script`**.
-3.  **Borra todo el código** que hay en el editor.
-4.  Copia y pega el siguiente código. Es una versión limpia y con diagnóstico de errores.
-
-```javascript
-// Asegúrate de que este nombre coincida EXACTAMENTE con el nombre de la pestaña en tu Google Sheet.
-// Si tu hoja se llama "Sheet1", déjalo como está. Si se llama "Datos", cámbialo a "Datos".
-var SHEET_NAME = "Sheet1";
-
-function doPost(e) {
-  try {
-    var data = JSON.parse(e.postData.contents);
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-
-    if (!sheet) {
-      // Si no encuentra la hoja, crea un log de error.
-      throw new Error("La hoja de cálculo '" + SHEET_NAME + "' no fue encontrada. Revisa el nombre.");
-    }
-    
-    var newRow = [
-      new Date(),
-      "Agregado por App HPM",
-      data.patientName || "",
-      data.patientRUT || "",
-      (data.surgeons || []).join(', '),
-      data.assistant || "",
-      data.surgicalTimes || "",
-      (data.surgicalCodes || []).join(', '),
-      data.technique || ""
-    ];
-    
-    sheet.appendRow(newRow);
-    
-    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }));
-                         
-  } catch (error) {
-    // Si algo falla, lo registrará en la pestaña "Logs".
-    logError(error, e.postData.contents);
-  }
-}
-
-function logError(error, data) {
-  try {
-    var logSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Logs");
-    if (!logSheet) {
-      logSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Logs");
-      logSheet.appendRow(["Timestamp", "Error Message", "Data Received"]);
-    }
-    logSheet.appendRow([new Date(), error.message, data]);
-  } catch (e) {
-    // Fallback por si incluso el log falla.
-  }
-}
-```
-
-#### Paso 2: Implementa la Versión Correcta
-
-1.  **Guarda** el proyecto (ícono de disquete).
-2.  Haz clic en el botón azul **`Implementar`** > **`Nueva implementación`**.
-3.  Configura **exactamente** así:
-    * **Tipo:** `Aplicación web`
-    * **Ejecutar como:** `Yo (tu.email@gmail.com)`
-    * **Quién tiene acceso:** `Cualquier usuario`
-4.  Haz clic en **`Implementar`** y **autoriza todos los permisos** que te pida, incluso si muestra una advertencia de "app no segura".
-
-#### Paso 3: Prueba Final
-
-Vuelve a la aplicación simplificada, llena los datos y envíalos.
-* **Si funciona:** Los datos aparecerán en tu hoja "Sheet1".
-* **Si no funciona:** Se creará una nueva pestaña llamada **"Logs"** en tu hoja de cálculo. Por favor, envíame una captura de pantalla de esa pestaña "Logs", ya que nos dirá el error exacto y la solución definiti
